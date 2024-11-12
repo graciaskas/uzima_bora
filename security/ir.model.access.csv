@@ -1,4 +1,3 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_ubo_journalier_manager,ubo_journalier_manager,model_ubo_journalier,,1,1,1,1
-access_ubo_presence_manager,ubo_presence_manager,model_ubo_presence,,1,1,1,1
-access_ubo_device_manager,ubo_device_manager,model_ubo_device,,1,1,1,1
+access_ubo_journalier_manager,ubo_journalier_manager,model_ubo_journalier,,1,1,1,0
+access_ubo_presence_manager,ubo_presence_manager,model_ubo_presence,,1,1,1,0
