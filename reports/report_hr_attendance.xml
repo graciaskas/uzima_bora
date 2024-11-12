@@ -1,0 +1,77 @@
+<odoo>
+
+	<record id="report_hr_presence" model="ir.actions.report">
+		<field name="name">Rapport de Présence des employés</field>
+		 <field name="model">report.hr.presence</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">uzima_bora.report_hr_presence_template</field>
+	</record>
+	   
+
+	<template id="report_hr_presence_template">
+	    <t t-call="web.html_container"> 
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                	<style>
+                		table {
+						  border-collapse: collapse;
+						}
+						th,td {
+						  border: 1px solid #cecfd5;
+						  padding: 10px 15px;
+						}
+
+						.alnright { text-align: right; }
+
+                	</style>
+
+                    <div style="padding:5px 0;">
+                        <h1>Rapport des présences</h1>
+                    </div>
+
+                    <table width="80%" >
+                    	<tbody>
+                    		<tr>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;" colspan="2"><b>Utilisateur</b></td>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;" colspan="2"><span t-esc="data['user_id']"/></td>
+                    		</tr>
+                    		<tr>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;"><b>Date from</b></td>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;"><span t-esc="data['date_start']"/></td>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;"><b>Date to</b></td>
+                    			<td style="border-top: 0; border-right: 0; border-left: 0;"><span t-esc="data['date_end']"/></td>
+                    		</tr>
+                    	</tbody>
+                    </table>
+
+                    <br/><br/>
+
+                    <table width="100%">
+                    	<thead>
+                    		<tr>
+	                    		
+                                <td><b>Employé</b></td>
+	                    		<td><b>Entrée</b></td>
+	                    		<td><b>Sortie</b></td>
+                                <td><b>Total heures</b></td>
+								<td><b>Fait par</b></td>
+	                    	</tr>
+                    	</thead>
+                    	<tbody>
+	                    	<tr t-foreach="data['lines']" t-as="line">
+	                    		
+                                <td><span t-esc="line['employee_id']"/></td>
+	                    		<td><span t-esc="line['check_in']"/></td>
+	                    		<td><span t-esc="line['check_out']"/></td>
+                                <td><span t-esc="line['worked_hours']"  t-options="{'widget': 'float_time'}" /></td>
+	                    		<td><span t-esc="line['responsible_id']"/></td>
+	                    	</tr>
+	                    </tbody>
+                    </table>
+                </div>
+            </t>
+	    </t>
+	</template>
+
+</odoo>

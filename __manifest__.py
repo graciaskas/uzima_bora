@@ -1,0 +1,25 @@
+{
+    "name":"Uzima Bora Sarl",
+    "description":"Module pour personnalisation Uzima Bora",
+    "depends":['base','sale','sale_management','purchase','account','hr_attendance'],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/sequences.xml",
+        "reports/sale_report_document.xml",
+        "reports/purchase_quotation_document.xml",
+        "reports/purchase_order_document.xml",
+        "reports/report_hr_attendance.xml",
+        "views/ubo_journalier_views.xml",
+        "views/ubo_presence_views.xml",
+        "wizards/report_ubo_presence.xml",
+        "reports/report_ubo_presence.xml",
+        "views/ubo_device_views.xml",
+        "views/hr_attendance.xml",
+        "wizards/report_hr_attendance.xml",
+        "views/menus.xml",
+    ],
+    "website":"https://zeslap.com",
+    "author":"ZeSlap Platforms, Gracias Kasongo",
+    "auto_install":False,
+    "application":False
+}

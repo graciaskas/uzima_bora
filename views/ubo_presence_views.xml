@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View ubo.presence View Tree -->
+    <record id="view_ubo_presence_tree" model="ir.ui.view">
+        <field name="name">view.ubo.presence.tree</field>
+        <field name="model">ubo.presence</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="journalier_id"/>
+                <field name="checkin"/>
+                <field name="checkout"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View ubo.presence form -->
+    <record id="view_ubo_presence_form" model="ir.ui.view">
+        <field name="name">view.ubo.presence.form</field>
+        <field name="model">ubo.presence</field>
+        <field name="arch" type="xml">
+            <form string="Ubo Presence">
+                <header>
+                    <button name="action_done" type="object" string="Enregistrer la sortie" class="btn-primary"
+                    attrs="{'invisible':[('states','=','done')]}"
+                    />
+                    <field name="states" widget="statusbar"  nolabel="1" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="journalier_id" placeholder="Journalier..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group><field name="checkin"/><field name="company_id"/></group>
+                        <group><field name="checkout"/></group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- View ubo.presence search -->
+    <record id="view_ubo_presence_search" model="ir.ui.view">
+        <field name="name">view.ubo.presence.search</field>
+        <field name="model">ubo.presence</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action ubo.presence -->
+    <record id="action_ubo_presence" model="ir.actions.act_window">
+        <field name="name">Présences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ubo.presence</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Il n'y a pas d'exemples, cliquez ici pour ajouter une présence de journalier .
+            </p>
+        </field>
+    </record>
+
+
+</odoo>

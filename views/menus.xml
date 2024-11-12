@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances"/>
+
+    <menuitem id="menu_journaliers_root" name="Journaliers" sequence="20" parent="hr_attendance.menu_hr_attendance_root"/>
+    <menuitem id="menu_journaliers" name="Journaliers" sequence="10" parent="uzima_bora.menu_journaliers_root" action="action_ubo_journalier"/>
+    <menuitem id="menu_presences" name="Présences" sequence="20" parent="uzima_bora.menu_journaliers_root" action="action_ubo_presence"/>
+    <menuitem id="menu_rapport_presences" name="Rapport des présences" sequence="30" parent="uzima_bora.menu_journaliers_root" action="uzima_bora.action_ubo_presence_wizard"/>
+    
+    <menuitem id="menu_rapports" name="Rapports" sequence="40" parent="hr_attendance.menu_hr_attendance_root" />
+    
+    <menuitem id="menu_report_attendance" name="Rapport de présences" sequence="10" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="uzima_bora.action_hr_attendance_wizard"/>
+    
+    <menuitem id="menu_hr_attendance_settings" name="Configuration" parent="hr_attendance.menu_hr_attendance_settings"
+        sequence="20" action="hr_attendance.action_hr_attendance_settings" groups="hr_attendance.group_hr_attendance_manager"/>
+    
+    <menuitem id="menu_config_device" name="Empreintes digitales" sequence="10" parent="hr_attendance.menu_hr_attendance_settings" action="uzima_bora.action_ubo_device" groups="hr_attendance.group_hr_attendance_manager"/>
+
+</odoo>
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View ubo.journalier View Tree -->
+    <record id="view_ubo_journalier_tree" model="ir.ui.view">
+        <field name="name">view.ubo.journalier.tree</field>
+        <field name="model">ubo.journalier</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View ubo.journalier form -->
+    <record id="view_ubo_journalier_form" model="ir.ui.view">
+        <field name="name">view.ubo.journalier.form</field>
+        <field name="model">ubo.journalier</field>
+        <field name="arch" type="xml">
+            <form string="Ubo Journalier">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- View ubo.journalier search -->
+    <record id="view_ubo_journalier_search" model="ir.ui.view">
+        <field name="name">view.ubo.journalier.search</field>
+        <field name="model">ubo.journalier</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action ubo.journalier -->
+    <record id="action_ubo_journalier" model="ir.actions.act_window">
+        <field name="name">Journaliers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ubo.journalier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Il n'y a pas d'exemples, cliquez ici pour ajouter un nouveau  journalier.
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

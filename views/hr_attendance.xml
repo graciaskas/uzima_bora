@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="inherit_view_attendance_form" model="ir.ui.view">
+    <field name="name">Présences</field>
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+    <field name="arch" type="xml">
+       <xpath expr="//form" position="replace">
+            <form string="Employee attendances" edit="0">
+                <header>
+                    <button name="action_done" type="object" string="Enregistrer la sortie" class="btn-primary"
+                    attrs="{'invisible':[('states','=','done')]}"
+                    />
+                    <field name="states" widget="statusbar"  nolabel="1" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="employee_id"/>
+                        <h1>
+                             <field name="employee_id"/>
+                        </h1>
+                    </div>
+                   <group>
+                     <group>
+                        <field name="check_in"/>
+                    </group>
+                    <group>
+                        <field name="check_out"/>
+                        <field name='worked_hours'/>
+                    </group>
+                   </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+       </xpath>
+    </field>
+</record>
+
+<record id="inherit_view_attendance_tree" model="ir.ui.view">
+    <field name="name">Présences</field>
+    <field name="model">hr.attendance</field>
+    <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+    <field name="arch" type="xml">
+       <xpath expr="//tree" position="replace">
+         <tree string="Employee attendances">
+            <field name="employee_id"/>
+            <field name="check_in"/>
+            <field name="check_out"/>
+            <field name="worked_hours" string="Work Hours" widget="float_time"/>
+            <field name="create_uid"/>
+            <field name="states"/>
+        </tree>
+       </xpath>
+    </field>
+</record>
+
+</odoo>

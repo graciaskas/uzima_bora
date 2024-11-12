@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_ubo_presence_wizard" model="ir.ui.view">
+        <field name="name">view.ubo.journalier.wizard</field>
+        <field name="model">report.ubo.presence</field>
+        <field name="arch" type="xml">
+            <form string="Ubo Journalier">
+                <group>
+                   
+                        <field name="journalier_id"/>
+                    
+                </group>
+                <group>
+                    <group><field name="date_start"/></group>
+                    <group><field name="date_end"/></group>
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimer" type="object" class="btn-primary"/>
+                    <button string="Annuler" special="cancel"  class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ubo_presence_wizard" model="ir.actions.act_window">
+        <field name="name">Rapport de Présences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">report.ubo.presence</field>
+        <field name="view_mode">form</field>
+       <field name="target">new</field>
+    </record>
+
+</odoo>
