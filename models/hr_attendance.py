@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-from zk import ZK, const
+# from zk import ZK, const
 from datetime import datetime
 from odoo import models, fields, api, _,exceptions
 from odoo.exceptions import UserError, ValidationError
