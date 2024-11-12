@@ -13,7 +13,7 @@
         "views/ubo_presence_views.xml",
         "wizards/report_ubo_presence.xml",
         "reports/report_ubo_presence.xml",
-        "views/ubo_device_views.xml",
+        # "views/ubo_device_views.xml",
         "views/hr_attendance.xml",
         "wizards/report_hr_attendance.xml",
         "views/menus.xml",
