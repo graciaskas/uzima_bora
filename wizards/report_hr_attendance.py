@@ -25,6 +25,12 @@ class UboPresence(models.TransientModel):
     date_end = fields.Datetime('Fin',required=True)
     employee_id = fields.Many2one('hr.employee')
 
+    site = fields.Selection([
+        ('tangawisi','Tangawisi'),
+        ('ihango','Ihango')
+    ],string='Site',default='tangawisi',tracking=1)
+    
+
     @api.model
     def convert_UTC_TZ(self, UTC_datetime):
         if not self.env.user.tz:
@@ -44,17 +50,22 @@ class UboPresence(models.TransientModel):
             'employee_id': self.employee_id.id
         }
         # ('state', '=', 'done')
-        records =  self.env["hr.attendance"].search([
-                ('check_in', '>=', data["date_start"]),
-                ('check_out', '<=', data['date_end']),
-            ])
-        if self.employee_id:
-            records = self.env["hr.attendance"].search([
-                ('check_in', '>=', data["date_start"]),
-                ('check_out', '<=', data['date_end']),
-                ('employee_id', '=', data['employee_id']),
-            ])
+        domain = [
+            ('check_in', '>=', data["date_start"]),
+            ('check_out', '<=', data['date_end']),
+        ]
+       
+        if self.employee_id and  not self.site:
+            domain.append(('employee_id', '=', data['employee_id']))
+        
+        if self.site and  not self.employee_id:
+            domain.append(('site', '=', self.site))
 
+        if self.site and self.employee_id:
+            domain.append(('site', '=', self.site))
+            domain.append(('employee_id', '=', data['employee_id']))
+
+        records =  self.env["hr.attendance"].search(domain)
         result = []
 
         for record in records:
@@ -63,7 +74,8 @@ class UboPresence(models.TransientModel):
                 'check_in':record.check_in,
                 'check_out':record.check_out,
                 'worked_hours':record.worked_hours,
-                'responsible_id':record.create_uid.name
+                'responsible_id':record.create_uid.name,
+                'site':record.site
             })
 
         data['lines'] = result

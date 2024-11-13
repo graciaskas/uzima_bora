@@ -26,6 +26,12 @@ class UboPresence(models.TransientModel):
 
     journalier_id = fields.Many2one('ubo.journalier')
 
+    site = fields.Selection([
+        ('tangawisi','Tangawisi'),
+        ('ihango','Ihango')
+    ],string='Site',tracking=1)
+    
+
     @api.model
     def convert_UTC_TZ(self, UTC_datetime):
         if not self.env.user.tz:
@@ -44,18 +50,25 @@ class UboPresence(models.TransientModel):
             'user_id': user_id.name,
             'journalier_id': self.journalier_id.id
         }
-        # ('state', '=', 'done')
-        records = self.env["ubo.presence"].search([
-            ('checkin', '>=', data["date_start"]),
-            ('checkout', '<=', data['date_end']),
-        ])
 
-        if self.journalier_id:
-            records = self.env["ubo.presence"].search([
+
+        domain = [
             ('checkin', '>=', data["date_start"]),
             ('checkout', '<=', data['date_end']),
-            ('journalier_id', '=', data['journalier_id']),
-        ])
+        ]
+       
+        if self.journalier_id and  not self.site:
+            domain.append(('journalier_id', '=', data['journalier_id']))
+        
+        if self.site and  not self.journalier_id:
+            domain.append(('site', '=', self.site))
+
+        if self.site and self.journalier_id:
+            domain.append(('site', '=', self.site))
+            domain.append(('journalier_id', '=', data['journalier_id']))
+
+        records =  self.env["ubo.presence"].search(domain)
+
 
         result = []
 
@@ -66,7 +79,8 @@ class UboPresence(models.TransientModel):
                 'checkin':record.checkin,
                 'checkout':record.checkout,
                 'worked_hours':record.worked_hours,
-                'responsible_id':record.create_uid.name
+                'responsible_id':record.create_uid.name,
+                'site':record.site
             })
 
         data['lines'] = result

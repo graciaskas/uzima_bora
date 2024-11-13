@@ -17,6 +17,11 @@ class HrAttendance(models.Model):
     _order = "check_in desc"
     _inherit = ['portal.mixin','mail.thread', 'mail.activity.mixin','utm.mixin','hr.attendance']
 
+    site = fields.Selection([
+        ('tangawisi','Tangawisi'),
+        ('ihango','Ihango')
+    ],string='Site',required=True,tracking=1)
+    
     states = fields.Selection([
         ('running','En cours'),
         ('done','Fait')

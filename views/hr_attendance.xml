@@ -24,6 +24,9 @@
                    <group>
                      <group>
                         <field name="check_in"/>
+                        <field name="site" attrs="{
+                            'readonly':[('states','=','done')]
+                        }"/>
                     </group>
                     <group>
                         <field name="check_out"/>
@@ -52,6 +55,7 @@
             <field name="check_in"/>
             <field name="check_out"/>
             <field name="worked_hours" string="Work Hours" widget="float_time"/>
+            <field name="site"/>
             <field name="create_uid"/>
             <field name="states"/>
         </tree>

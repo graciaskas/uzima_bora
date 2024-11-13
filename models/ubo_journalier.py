@@ -13,4 +13,11 @@ class UboJournalier(models.Model):
     _inherit = ['portal.mixin','mail.thread', 'mail.activity.mixin','utm.mixin']
 
     name = fields.Char('Noms', required=True,tracking=1)
+    site = fields.Selection([
+        ('tangawisi','Tangawisi'),
+        ('ihango','Ihango')
+    ],string='Site',required=True,tracking=1)
+
+    
+    
     active = fields.Boolean('Active',default=True)

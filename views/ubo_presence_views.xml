@@ -11,6 +11,7 @@
                 <field name="journalier_id"/>
                 <field name="checkin"/>
                 <field name="checkout"/>
+                <field name="site"/>
                 <field name="company_id"/>
             </tree>
         </field>
@@ -36,8 +37,15 @@
                         </h1>
                     </div>
                     <group>
-                        <group><field name="checkin"/><field name="company_id"/></group>
-                        <group><field name="checkout"/></group>
+                        <group>
+                            <field name="checkin"/>
+                            <field name="site" attrs="{'readonly':[('states','=','done')]}"/>
+                        </group>
+                        <group>
+                            <field name="checkout"/>
+                            <field name="worked_hours"/>
+                            <field name="company_id"/>
+                        </group>
                     </group>
                 </sheet>
                 <div class="oe_chatter">
@@ -49,14 +57,23 @@
         </field>
     </record>
 
-    <!-- View ubo.presence search -->
-    <record id="view_ubo_presence_search" model="ir.ui.view">
+
+
+     <record id="view_ubo_presence_search" model="ir.ui.view">
         <field name="name">view.ubo.presence.search</field>
         <field name="model">ubo.presence</field>
         <field name="arch" type="xml">
-            <search>
-                <group expand="1" string="Group By">
-                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+            <search string="Hr Attendance Search">
+                <field name="journalier_id"/>
+                <!-- <field name="site" operator="child_of"/> -->
+                <filter string="Site Tangawisi" name="site" domain="[('site', '=', 'tangawisi')]" />
+                <filter string="Site Ihango" name="site" domain="[('site', '=', 'ihango')]" />
+                <separator/>
+
+                <group expand="0" string="Group By">
+                    <filter string="Journalier" name="journalier" context="{'group_by': 'journalier_id'}"/>
+                    <filter string="Check In" name="groupby_name" context="{'group_by': 'checkin'}"/>
+                    <filter string="Check Out" name="groupby_check_out" context="{'group_by': 'checkout'}"/>
                 </group>
             </search>
         </field>

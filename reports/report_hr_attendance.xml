@@ -50,11 +50,11 @@
                     <table width="100%">
                     	<thead>
                     		<tr>
-	                    		
                                 <td><b>Employé</b></td>
 	                    		<td><b>Entrée</b></td>
 	                    		<td><b>Sortie</b></td>
                                 <td><b>Total heures</b></td>
+								<td><b>Site</b></td>
 								<td><b>Fait par</b></td>
 	                    	</tr>
                     	</thead>
@@ -65,7 +65,8 @@
 	                    		<td><span t-esc="line['check_in']"/></td>
 	                    		<td><span t-esc="line['check_out']"/></td>
                                 <td><span t-esc="line['worked_hours']"  t-options="{'widget': 'float_time'}" /></td>
-	                    		<td><span t-esc="line['responsible_id']"/></td>
+	                    		<td><span t-esc="line['site']"/></td>
+								<td><span t-esc="line['responsible_id']"/></td>
 	                    	</tr>
 	                    </tbody>
                     </table>

@@ -12,16 +12,22 @@ class UboPresence(models.Model):
     _name = 'ubo.presence'
     _description = 'Présences de journaliers'
     _inherit = ['portal.mixin','mail.thread', 'mail.activity.mixin','utm.mixin']
-
-    name = fields.Char('ID',readonly=True, copy=False)
+    _order= 'checkin desc'
+    name = fields.Char('ID',readonly=True, copy=False,default=(_('New')))
     journalier_id = fields.Many2one("ubo.journalier",string='Journalier',required=True)
     checkin = fields.Datetime('Heure d\'entrée',readonly=True,default=fields.Datetime.now)
     checkout = fields.Datetime('Heure de sortie',readonly=True,tracking=1)
-    worked_hours = fields.Float(string='Worked Hours', compute='_compute_worked_hours', store=True, readonly=True)
+    worked_hours = fields.Float(string='Heure travaillées', compute='_compute_worked_hours', store=True, readonly=True)
     states = fields.Selection([
         ('running','En cours'),
         ('done','Fait')
     ],string='Etat',default='running',tracking=1)
+
+    site = fields.Selection([
+        ('tangawisi','Tangawisi'),
+        ('ihango','Ihango')
+    ],string='Site',required=True,related='journalier_id.site')
+    
 
     company_id = fields.Many2one('res.company', default= lambda self : self.env.user.company_id,readonly=True)
     active = fields.Boolean('Active',default=True)
@@ -105,8 +111,7 @@ class UboPresence(models.Model):
 
     @api.model
     def create(self, vals):
-        if 'name' in vals:
-            vals["name"] = (
-                self.env["ir.sequence"].next_by_code("ubo.presence")
-            )
+        vals["name"] = (
+            self.env["ir.sequence"].next_by_code("ubo.presence")
+        )
         return super(UboPresence, self).create(vals)
